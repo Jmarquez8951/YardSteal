@@ -86,5 +86,18 @@ namespace YardSteal.Controllers
 
             return Ok();
         }
+
+        [HttpPut("{postId}")]
+        public IActionResult UpdatePost(int postId, Post postToUpdate)
+        {
+            if (_repo.GetById(postId) == null)
+            {
+                return NotFound();
+            }
+
+            var updatedPost = _repo.Update(postId, postToUpdate);
+
+            return Ok(updatedPost);
+        }
     }
 }
