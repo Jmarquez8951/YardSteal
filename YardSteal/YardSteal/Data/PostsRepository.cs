@@ -23,6 +23,21 @@ namespace YardSteal.Data
             return posts;
         }
 
+        public Post GetById(int postId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select *
+                        from Posts
+                        where Id = @id";
+
+            var param = new { id = postId };
+
+            var singlePost = db.QueryFirstOrDefault<Post>(sql, param);
+
+            return singlePost;
+        }
+
         public void  Add(Post postToAdd)
         {
             using var db = new SqlConnection(_connectionString);
@@ -43,6 +58,19 @@ namespace YardSteal.Data
             var newId = db.ExecuteScalar<int>(sql, postToAdd);
 
             postToAdd.Id = newId;
+        }
+
+        public void Remove(int postId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"DELETE 
+                        FROM [dbo].[Posts]
+                        WHERE Id = @id";
+
+            var param = new { id = postId };
+
+            db.Execute(sql, param);
         }
     }
 }

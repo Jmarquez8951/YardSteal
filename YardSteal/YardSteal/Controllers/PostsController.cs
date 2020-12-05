@@ -34,5 +34,18 @@ namespace YardSteal.Controllers
 
             return Created($"api/posts/{newPost.Id}", newPost);
         }
+
+        [HttpDelete("{postId}")]
+        public IActionResult RemovePost(int postId)
+        {
+            if (_repo.GetById(postId) == null)
+            {
+                NotFound();
+            }
+
+            _repo.Remove(postId);
+
+            return Ok();
+        }
     }
 }
