@@ -107,5 +107,34 @@ namespace YardSteal.Data
 
             db.Execute(sql, param);
         }
+
+        public Post Update(int postId, Post postToUpdate)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"UPDATE [dbo].[Posts]
+                           SET [description] = @description
+                              ,[streetAddress] = @streetAddress
+                              ,[streetAddress2] = @streetAddress2
+                              ,[city] = @city
+                              ,[state] = @state
+                              ,[zipcode] = @zipcode
+                         WHERE Id = @id";
+
+            var parameters = new
+            {
+                postToUpdate.Description,
+                postToUpdate.StreetAddress,
+                postToUpdate.StreetAddress2,
+                postToUpdate.City,
+                postToUpdate.State,
+                postToUpdate.Zipcode,
+                id = postId
+            };
+
+            var updatedPost = db.QueryFirstOrDefault<Post>(sql, parameters);
+
+            return updatedPost;
+        }
     }
 }
