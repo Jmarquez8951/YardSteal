@@ -21,5 +21,25 @@ namespace YardSteal.Data
 
             return users;
         }
+
+        public void Add(User userToAdd)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"INSERT INTO [dbo].[Users]
+                               ([uid]
+                               ,[username]
+                               ,[email]
+                               ,[password]
+                               ,[profilePic]
+                               ,[dateJoined]
+                               ,[phoneNumber])
+                               Output inserted.id
+                         VALUES
+                               (@uid, @username, @email, @password, @profilePic, @dateJoined, @phoneNumber)";
+            var newId = db.ExecuteScalar<int>(sql, userToAdd);
+
+            userToAdd.Id = newId;
+        }
     }
 }
