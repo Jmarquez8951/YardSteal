@@ -35,5 +35,18 @@ namespace YardSteal.Controllers
 
             return Created($"api/messages/{messageToAdd.Id}", messageToAdd);
         }
+
+        [HttpDelete("{messageId}")]
+        public IActionResult RemoveMessage(int messageId)
+        {
+            if (_repo.GetById(messageId) == null)
+            {
+                NotFound();
+            }
+
+            _repo.Remove(messageId);
+
+            return Ok();
+        }
     }
 }
