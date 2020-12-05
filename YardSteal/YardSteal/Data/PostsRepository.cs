@@ -38,6 +38,17 @@ namespace YardSteal.Data
             return singlePost;
         }
 
+        public IEnumerable<Post> GetLatestPosts()
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = "select * from Posts order by datePosted desc";
+
+            var posts = db.Query<Post>(sql);
+
+            return posts;
+        }
+
         public void  Add(Post postToAdd)
         {
             using var db = new SqlConnection(_connectionString);
