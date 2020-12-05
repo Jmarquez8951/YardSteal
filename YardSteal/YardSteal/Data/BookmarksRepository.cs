@@ -23,6 +23,21 @@ namespace YardSteal.Data
             return bookmarks;
         }
 
+        public Bookmark GetById(int bookmarkId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select *
+                        from Bookmarks
+                        where Id = @id";
+
+            var param = new { id = bookmarkId };
+
+            var singleBookmark = db.QueryFirstOrDefault<Bookmark>(sql, param);
+
+            return singleBookmark;
+        }
+
         public void Add(Bookmark bookmarkToAdd)
         {
             using var db = new SqlConnection(_connectionString);
@@ -37,6 +52,19 @@ namespace YardSteal.Data
             var newId = db.ExecuteScalar<int>(sql, bookmarkToAdd);
 
             bookmarkToAdd.Id = newId;
+        }
+
+        public void Remove(int bookmarkId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"DELETE 
+                        FROM [dbo].[Bookmarks]
+                        WHERE Id = @id";
+
+            var param = new { id = bookmarkId };
+
+            db.Execute(sql, param);
         }
     }
 }

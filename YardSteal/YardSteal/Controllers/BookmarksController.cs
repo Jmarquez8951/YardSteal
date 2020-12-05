@@ -34,5 +34,18 @@ namespace YardSteal.Controllers
 
             return Created($"api/bookmarks/{bookmarkToAdd.Id}", bookmarkToAdd);
         }
+
+        [HttpDelete("{bookmarkId}")]
+        public IActionResult RemoveBookmark(int bookmarkId)
+        {
+            if (_repo.GetById(bookmarkId) == null)
+            {
+                NotFound();
+            }
+
+            _repo.Remove(bookmarkId);
+
+            return Ok();
+        }
     }
 }
