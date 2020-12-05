@@ -27,5 +27,13 @@ namespace YardSteal.Controllers
 
             return Ok(allUsers);
         }
+
+        [HttpPost]
+        public IActionResult CreateNewUser(User newUser)
+        {
+            _repo.Add(newUser);
+
+            return Created($"/api/users/{newUser.Id}", newUser);
+        }
     }
 }
