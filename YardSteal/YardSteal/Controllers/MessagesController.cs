@@ -41,7 +41,7 @@ namespace YardSteal.Controllers
         {
             if (_repo.GetById(messageId) == null)
             {
-                NotFound();
+                return NotFound();
             }
 
             _repo.Remove(messageId);

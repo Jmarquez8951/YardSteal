@@ -40,7 +40,7 @@ namespace YardSteal.Controllers
         {
             if (_repo.GetById(postId) == null)
             {
-                NotFound();
+                return NotFound();
             }
 
             _repo.Remove(postId);

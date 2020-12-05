@@ -22,6 +22,21 @@ namespace YardSteal.Data
             return users;
         }
 
+        public User GetById(int userId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select *
+                        from Users
+                        where Id = @id";
+
+            var param = new { id = userId };
+
+            var singleUser = db.QueryFirstOrDefault<User>(sql, param);
+
+            return singleUser;
+        }
+
         public void Add(User userToAdd)
         {
             using var db = new SqlConnection(_connectionString);
@@ -40,6 +55,20 @@ namespace YardSteal.Data
             var newId = db.ExecuteScalar<int>(sql, userToAdd);
 
             userToAdd.Id = newId;
+        }
+
+        public void Remove(int userId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"DELETE 
+                        FROM [dbo].[Users]
+                        WHERE Id = @id";
+
+            var param = new { id = userId };
+
+            db.Execute(sql, param);
+
         }
     }
 }

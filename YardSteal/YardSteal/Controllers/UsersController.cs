@@ -35,5 +35,18 @@ namespace YardSteal.Controllers
 
             return Created($"/api/users/{newUser.Id}", newUser);
         }
+
+        [HttpDelete("{userId}")]
+        public IActionResult RemoveUser(int userId)
+        {
+            if (_repo.GetById(userId) == null)
+            {
+                return NotFound();
+            }
+
+            _repo.Remove(userId);
+
+            return Ok();
+        }
     }
 }
