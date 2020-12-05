@@ -22,5 +22,21 @@ namespace YardSteal.Data
 
             return bookmarks;
         }
+
+        public void Add(Bookmark bookmarkToAdd)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = $@"INSERT INTO [dbo].[Bookmarks]
+                               ([uid]
+                               ,[postId])
+                               Output inserted.id
+                         VALUES
+                               (@uid, @postId)";
+
+            var newId = db.ExecuteScalar<int>(sql, bookmarkToAdd);
+
+            bookmarkToAdd.Id = newId;
+        }
     }
 }
