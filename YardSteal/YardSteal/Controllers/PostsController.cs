@@ -27,6 +27,16 @@ namespace YardSteal.Controllers
             return Ok(allPosts);
         }
 
+        [HttpGet("{postId}")]
+        public IActionResult GetSinglePost(int postId)
+        {
+            var post = _repo.GetById(postId);
+
+            if (post == null) return NotFound();
+
+            return Ok(post);
+        }
+
         [HttpPost]
         public IActionResult CreateNewPost(Post newPost)
         {
