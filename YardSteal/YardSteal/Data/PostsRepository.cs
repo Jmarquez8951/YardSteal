@@ -60,6 +60,19 @@ namespace YardSteal.Data
             return posts;
         }
 
+        public IEnumerable<Message> GetPostComments(int postId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = "select * from Messages where postId = @id";
+
+            var param = new { id = postId };
+
+            var messages = db.Query<Message>(sql, param);
+
+            return messages;
+        }
+
         public void  Add(Post postToAdd)
         {
             using var db = new SqlConnection(_connectionString);

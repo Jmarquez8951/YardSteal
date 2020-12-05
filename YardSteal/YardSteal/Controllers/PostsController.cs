@@ -53,6 +53,19 @@ namespace YardSteal.Controllers
             return Ok(oldestPosts);
         }
 
+        [HttpGet("{postId}/comments")]
+        public IActionResult PostComments(int postId)
+        {
+            if (_repo.GetById(postId) == null)
+            {
+                return NotFound();
+            }
+
+            var comments = _repo.GetPostComments(postId);
+
+            return Ok(comments);
+        }
+
         [HttpPost]
         public IActionResult CreateNewPost(Post newPost)
         {
