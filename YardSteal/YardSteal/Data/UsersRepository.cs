@@ -70,5 +70,32 @@ namespace YardSteal.Data
             db.Execute(sql, param);
 
         }
+
+        public User Update(int userId, User userToUpdate)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"UPDATE [dbo].[Users]
+                           SET [username] = @username 
+                              ,[email] = @email
+                              ,[password] = @password
+                              ,[profilePic] = @profilePic
+                              ,[phoneNumber] = @phoneNumber
+                         WHERE Id = @id";
+
+            var parameters = new
+            {
+                userToUpdate.Username,
+                userToUpdate.Email,
+                userToUpdate.Password,
+                userToUpdate.ProfilePic,
+                userToUpdate.PhoneNumber,
+                id = userId
+            };
+
+            var updatedUser = db.QueryFirstOrDefault<User>(sql, parameters);
+
+            return updatedUser;
+        }
     }
 }

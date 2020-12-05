@@ -48,5 +48,18 @@ namespace YardSteal.Controllers
 
             return Ok();
         }
+
+        [HttpPut("{userId}")]
+        public IActionResult UpdateUser(int userId, User userToUpdate)
+        {
+            if (_repo.GetById(userId) == null)
+            {
+                return NotFound();
+            }
+
+            var updatedUser = _repo.Update(userId, userToUpdate);
+
+            return Ok(updatedUser);
+        }
     }
 }
