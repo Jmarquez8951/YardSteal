@@ -37,6 +37,14 @@ namespace YardSteal.Controllers
             return Ok(post);
         }
 
+        [HttpGet("newests")]
+        public IActionResult GetNewestPosts()
+        {
+            var newestsPosts = _repo.GetLatestPosts();
+
+            return Ok(newestsPosts);
+        }
+
         [HttpPost]
         public IActionResult CreateNewPost(Post newPost)
         {
