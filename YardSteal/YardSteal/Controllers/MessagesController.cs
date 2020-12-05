@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using YardSteal.Data;
+using YardSteal.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,5 +28,12 @@ namespace YardSteal.Controllers
             return Ok(allMessages);
         }
 
+        [HttpPost]
+        public IActionResult AddMessage(Message messageToAdd)
+        {
+            _repo.Add(messageToAdd);
+
+            return Created($"api/messages/{messageToAdd.Id}", messageToAdd);
+        }
     }
 }
