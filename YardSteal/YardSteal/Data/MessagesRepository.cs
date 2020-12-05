@@ -22,6 +22,21 @@ namespace YardSteal.Data
             return messages;
         }
 
+        public Message GetById(int messageId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select *
+                        from Messages
+                        where Id = @id";
+
+            var param = new { id = messageId };
+
+            var singleMessage = db.QueryFirstOrDefault<Message>(sql, param);
+
+            return singleMessage;
+        }
+
         public void Add(Message messageToAdd)
         {
             using var db = new SqlConnection(_connectionString);
@@ -38,6 +53,19 @@ namespace YardSteal.Data
             var newId = db.ExecuteScalar<int>(sql, messageToAdd);
 
             messageToAdd.Id = newId;
+        }
+
+        public void Remove(int messageId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"DELETE 
+                        FROM [dbo].[Messages]
+                        WHERE Id = @id";
+
+            var param = new { id = messageId };
+
+            db.Execute(sql, param);
         }
     }
 }
