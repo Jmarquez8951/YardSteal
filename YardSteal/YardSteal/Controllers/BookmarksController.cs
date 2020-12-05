@@ -26,5 +26,13 @@ namespace YardSteal.Controllers
 
             return Ok(allBookmarks);
         }
+
+        [HttpPost]
+        public IActionResult AddBookmark(Bookmark bookmarkToAdd)
+        {
+            _repo.Add(bookmarkToAdd);
+
+            return Created($"api/bookmarks/{bookmarkToAdd.Id}", bookmarkToAdd);
+        }
     }
 }
