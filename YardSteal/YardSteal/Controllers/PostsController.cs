@@ -26,5 +26,13 @@ namespace YardSteal.Controllers
 
             return Ok(allPosts);
         }
+
+        [HttpPost]
+        public IActionResult CreateNewPost(Post newPost)
+        {
+            _repo.Add(newPost);
+
+            return Created($"api/posts/{newPost.Id}", newPost);
+        }
     }
 }

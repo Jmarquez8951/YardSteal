@@ -22,5 +22,27 @@ namespace YardSteal.Data
 
             return posts;
         }
+
+        public void  Add(Post postToAdd)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = $@"INSERT INTO [dbo].[Posts]
+                               ([uid]
+                               ,[description]
+                               ,[streetAddress]
+                               ,[streetAddress2]
+                               ,[city]
+                               ,[state]
+                               ,[zipcode]
+                               ,[datePosted])
+                               Output inserted.id
+                         VALUES
+                               (@uid, @description, @streetAddress, @streetAddress2, @city, @state, @zipcode, @datePosted)";
+
+            var newId = db.ExecuteScalar<int>(sql, postToAdd);
+
+            postToAdd.Id = newId;
+        }
     }
 }
