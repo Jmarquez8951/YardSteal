@@ -1,5 +1,7 @@
 import React from 'react';
 import postsData from '../../../helpers/data/postsData';
+
+import DropdownComponent from '../../shared/Dropdown/Dropdown';
 import './Home.scss';
 
 class Home extends React.Component {
@@ -7,12 +9,28 @@ class Home extends React.Component {
     posts: [],
   }
 
-  componentDidMount() {
+  getAllPosts = () => {
     postsData.getPosts()
       .then((response) => {
         this.setState({ posts: response });
       })
       .catch((err) => console.error('could not get posts', err));
+  }
+
+  getNewestPosts = () => {
+    postsData.getLatestPosts()
+      .then((response) => this.setState({ posts: response }))
+      .catch((err) => console.error('could not get latest posts', err));
+  }
+
+  getOldestPosts = () => {
+    postsData.getOldestPosts()
+      .then((response) => this.setState({ posts: response }))
+      .catch((err) => console.error('could not get oldest posts', err));
+  }
+
+  componentDidMount() {
+    this.getAllPosts();
   }
 
   render() {
@@ -24,8 +42,13 @@ class Home extends React.Component {
 
     return (
       <div className="Home">
-        <h1>Home Page</h1>
-        {buildPostsCards()}
+        <div className="d-flex justify-content-center flex-column">
+          <h1>Home Page</h1>
+          <DropdownComponent getNewestPosts={this.getNewestPosts} getOldestPosts={this.getOldestPosts} />
+          <div className="mx-auto">
+            {buildPostsCards()}
+          </div>
+        </div>
       </div>
     );
   }
