@@ -1,0 +1,12 @@
+.PostCard {
+  display: inline;
+  .card:hover {
+    cursor: pointer;
+  }
+  .card {
+    box-shadow: black 8px 8px 25px;
+    .title {
+      border-bottom: black solid 1px ;
+    }
+  }
+}
