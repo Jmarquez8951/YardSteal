@@ -2,6 +2,7 @@ import React from 'react';
 import postsData from '../../../helpers/data/postsData';
 
 import DropdownComponent from '../../shared/Dropdown/Dropdown';
+import PostCard from '../../shared/PostCard/PostCard';
 import './Home.scss';
 
 class Home extends React.Component {
@@ -37,7 +38,7 @@ class Home extends React.Component {
     const { posts } = this.state;
 
     const buildPostsCards = () => posts.map((post) => (
-        <h2>{post.city}</h2>
+        <PostCard post={post}/>
     ));
 
     return (
