@@ -7,6 +7,12 @@ const getPosts = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getSinglePost = (postId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/posts/${postId}`)
+    .then((response) => resolve(response.data))
+    .catch((err) => reject(err));
+});
+
 const getLatestPosts = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/posts/newest`)
     .then((response) => resolve(response.data))
@@ -19,4 +25,9 @@ const getOldestPosts = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export default { getPosts, getLatestPosts, getOldestPosts };
+export default {
+  getPosts,
+  getSinglePost,
+  getLatestPosts,
+  getOldestPosts,
+};
