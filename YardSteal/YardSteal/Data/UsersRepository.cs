@@ -37,12 +37,26 @@ namespace YardSteal.Data
             return singleUser;
         }
 
+        public User GetByUid(string uid)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"SELECT * FROM Users
+                        WHERE usersUid = @UID";
+
+            var param = new { UID = uid };
+
+            var user = db.QueryFirstOrDefault<User>(sql, param);
+
+            return user;
+        }
+
         public void Add(User userToAdd)
         {
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"INSERT INTO [dbo].[Users]
-                               ([uid]
+                               ([usersUid]
                                ,[username]
                                ,[email]
                                ,[password]

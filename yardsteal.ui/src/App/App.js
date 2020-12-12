@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import Home from '../components/page/Home/Home';
+import SingleView from '../components/page/SingleView/SingleView';
 import MyNavbar from '../components/shared/MyNavbar/MyNavbar';
 
 import './App.scss';
@@ -21,6 +22,7 @@ class App extends React.Component {
             <div className="container">
               <Switch>
                 <Route path='/home' component={Home} />
+                <Route path='/posts/:postId' component={SingleView} />
                 <Redirect from="*" to="/home"/>
               </Switch>
             </div>

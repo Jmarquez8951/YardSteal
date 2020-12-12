@@ -9,6 +9,7 @@ namespace YardSteal.Models
     {
         public int Id { get; set; }
         public string Uid { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
         public string StreetAddress { get; set; }
         public string StreetAddress2 { get; set; }
