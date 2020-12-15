@@ -38,7 +38,7 @@ class Home extends React.Component {
     const { posts } = this.state;
 
     const buildPostsCards = () => posts.map((post) => (
-        <PostCard post={post}/>
+        <PostCard key={post.id} post={post}/>
     ));
 
     return (

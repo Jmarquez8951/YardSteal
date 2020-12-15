@@ -59,9 +59,14 @@ class CreateAccount extends React.Component {
       .catch((err) => console.error('could not register user', err));
   }
 
+  toLoginPage = (e) => {
+    e.preventDefault();
+    e.view.location.pathname = '/log-in';
+  }
+
   render() {
     return (
-      <div className="CreateAccount">
+      <div className="CreateAccount d-flex justify-content-center flex-column">
         <div className="mb-3">
           <label htmlFor="users-email" className="form-label">Email address</label>
           <input type="email" className="form-control" id="users-email" onChange={this.emailChange} aria-describedby="emailHelp"/>
@@ -78,7 +83,8 @@ class CreateAccount extends React.Component {
           <label htmlFor="users-username" className="form-label">Username</label>
           <input type="text" className="form-control" id="users-username" onChange={this.usernameChange}/>
         </div>
-        <button type="submit" className="btn btn-primary" onClick={this.submit}>Submit</button>
+        <button type="submit" className="btn btn-primary mx-auto" onClick={this.submit}>Submit</button>
+        <p>Already have an account? <small className="border-bottom border-dark" onClick={this.toLoginPage}>Click Here</small></p>
       </div>
     );
   }

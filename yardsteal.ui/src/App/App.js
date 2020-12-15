@@ -13,6 +13,7 @@ import {
 import Home from '../components/page/Home/Home';
 import SingleView from '../components/page/SingleView/SingleView';
 import CreateAccount from '../components/page/CreateAccount/CreateAccount';
+import Login from '../components/page/Login/Login';
 import MyNavbar from '../components/shared/MyNavbar/MyNavbar';
 import fbConnection from '../helpers/data/connection';
 
@@ -64,6 +65,7 @@ class App extends React.Component {
                 <PrivateRoute path='/home' component={Home} authed={authed} />
                 <PrivateRoute path='/posts/:postId' component={SingleView} authed={authed} />
                 <PublicRoute path='/sign-up' component={CreateAccount} authed={authed} />
+                <PublicRoute path='/log-in' component={Login} authed={authed} />
                 <Redirect from="*" to="/home"/>
               </Switch>
             </div>
