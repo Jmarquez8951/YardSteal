@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { baseUrl } from '../constants.json';
+import { baseUrl } from '../apiKeys.json';
 
 const getUserByUid = (uid) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/users/${uid}`)

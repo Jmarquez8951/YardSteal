@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import utils from '../../../helpers/utils';
 import './PostCard.scss';
 
@@ -11,7 +12,7 @@ class PostCard extends React.Component {
   goToSingleView = (e) => {
     e.preventDefault();
     const postId = this.props.post.id;
-    e.view.location.pathname = `/posts/${postId}`;
+    this.props.history.push(`/posts/${postId}`);
   }
 
   render() {
@@ -31,4 +32,4 @@ class PostCard extends React.Component {
   }
 }
 
-export default PostCard;
+export default withRouter(PostCard);

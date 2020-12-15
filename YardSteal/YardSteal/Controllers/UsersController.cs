@@ -69,5 +69,7 @@ namespace YardSteal.Controllers
 
             return Ok(updatedUser);
         }
+
+        //[HttpPatch("{}")]
     }
 }
