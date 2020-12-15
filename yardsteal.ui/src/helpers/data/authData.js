@@ -14,9 +14,17 @@ axios.interceptors.request.use((request) => {
   return request;
 }, (err) => Promise.reject(err));
 
-const registerUser = (user) => firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then((cred) => {
+const registerUser = (user) => firebase.auth().createUserWithEmailAndPassword(user.email.trim(), user.password).then((cred) => {
   // get email from firebase
-  const userInfo = { email: cred.user.email };
+  const userInfo = {
+    email: cred.user.email,
+    password: user.password,
+    phoneNumber: user.phoneNumber,
+    profilePic: user.profilePic,
+    username: user.username,
+    usersUid: cred.user.uid,
+    dateJoined: user.dateJoined,
+  };
 
   // get token from firebase
   cred.user.getIdToken()

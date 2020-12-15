@@ -18,6 +18,13 @@ import fbConnection from '../helpers/data/connection';
 
 fbConnection();
 
+const PublicRoute = ({ component: Component, authed, ...rest }) => {
+  const routeChecker = (props) => (authed === false
+    ? (<Component {...props} />)
+    : (<Redirect to={{ pathname: '/home', state: { from: props.location } }} />));
+  return <Route {...rest} render={(props) => routeChecker(props)} />;
+};
+
 const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = (props) => (authed === true
     ? (<Component {...props} />)
@@ -56,7 +63,7 @@ class App extends React.Component {
               <Switch>
                 <PrivateRoute path='/home' component={Home} authed={authed} />
                 <PrivateRoute path='/posts/:postId' component={SingleView} authed={authed} />
-                <Route path='/sign-up' component={CreateAccount} authed={authed} />
+                <PublicRoute path='/sign-up' component={CreateAccount} authed={authed} />
                 <Redirect from="*" to="/home"/>
               </Switch>
             </div>

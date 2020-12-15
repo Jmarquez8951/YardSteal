@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink as RRNavlink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   Collapse,
   Navbar,
@@ -9,6 +10,7 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
+import authData from '../../../helpers/data/authData';
 import './MyNavbar.scss';
 
 class MyNavbar extends React.Component {
@@ -16,11 +18,22 @@ class MyNavbar extends React.Component {
     isOpen: false,
   }
 
+  static propTypes = {
+    authed: PropTypes.bool.isRequired,
+  }
+
   toggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
   }
 
+  logMeOut = (e) => {
+    e.preventDefault();
+    authData.logoutUser();
+  }
+
   render() {
+    const { authed } = this.props;
+
     return (
       <div className="MyNavbar">
         <Navbar color="faded" light>
@@ -40,9 +53,13 @@ class MyNavbar extends React.Component {
             <NavItem>
               <NavLink tag={RRNavlink} to={'/bookmarks'}>Bookmarks</NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink >Logout</NavLink>
-            </NavItem>
+            {authed
+              ? <NavItem>
+                  <NavLink onClick={this.logMeOut}>Logout</NavLink>
+                </NavItem>
+              : ''
+            }
+
           </Nav>
         </Collapse>
       </Navbar>
