@@ -59,7 +59,6 @@ class MyNavbar extends React.Component {
                 </NavItem>
               : ''
             }
-
           </Nav>
         </Collapse>
       </Navbar>

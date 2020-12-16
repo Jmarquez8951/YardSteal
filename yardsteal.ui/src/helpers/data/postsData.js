@@ -25,9 +25,12 @@ const getOldestPosts = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const addPost = (newPost) => axios.post(`${baseUrl}/posts`, newPost);
+
 export default {
   getPosts,
   getSinglePost,
   getLatestPosts,
   getOldestPosts,
+  addPost,
 };
