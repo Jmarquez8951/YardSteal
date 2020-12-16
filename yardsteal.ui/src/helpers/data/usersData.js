@@ -17,4 +17,10 @@ const getUserByUid = (uid) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export default { getUserByUid };
+const getUsersPosts = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/users/${uid}/posts`)
+    .then((response) => resolve(response.data))
+    .catch((err) => reject(err));
+});
+
+export default { getUserByUid, getUsersPosts };

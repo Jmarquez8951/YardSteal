@@ -51,6 +51,20 @@ namespace YardSteal.Data
             return user;
         }
 
+        public IEnumerable<Post> GetPostsByUid(string uid)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * from Posts
+                        where [uid] = @UID";
+
+            var param = new { UID = uid };
+
+            var posts = db.Query<Post>(sql, param);
+
+            return posts;
+        }
+
         public void Add(User userToAdd)
         {
             using var db = new SqlConnection(_connectionString);
