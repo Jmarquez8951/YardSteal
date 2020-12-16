@@ -79,6 +79,7 @@ namespace YardSteal.Data
 
             var sql = $@"INSERT INTO [dbo].[Posts]
                                ([uid]
+                               ,[title]
                                ,[description]
                                ,[streetAddress]
                                ,[streetAddress2]
@@ -88,7 +89,7 @@ namespace YardSteal.Data
                                ,[datePosted])
                                Output inserted.id
                          VALUES
-                               (@uid, @description, @streetAddress, @streetAddress2, @city, @state, @zipcode, @datePosted)";
+                               (@uid, @title, @description, @streetAddress, @streetAddress2, @city, @state, @zipcode, @datePosted)";
 
             var newId = db.ExecuteScalar<int>(sql, postToAdd);
 
@@ -113,7 +114,8 @@ namespace YardSteal.Data
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"UPDATE [dbo].[Posts]
-                           SET [description] = @description
+                           SET [title] = @title
+                              ,[description] = @description
                               ,[streetAddress] = @streetAddress
                               ,[streetAddress2] = @streetAddress2
                               ,[city] = @city
@@ -123,6 +125,7 @@ namespace YardSteal.Data
 
             var parameters = new
             {
+                postToUpdate.Title,
                 postToUpdate.Description,
                 postToUpdate.StreetAddress,
                 postToUpdate.StreetAddress2,
