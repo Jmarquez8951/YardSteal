@@ -64,21 +64,17 @@ class PostCard extends React.Component {
               </div>
             : ''}
           <div class="row g-0">
-              <div class="col-md-3 pr-0 pl-4 pt-2 users-profile-pic d-flex justify-content-center flex-column">
-                <h3 className="mx-auto">Posted By:</h3>
-                <img className="profile-pic mx-auto" src={user.profilePic} alt=""/>
-                <p className="mx-auto">{user.username}</p>
-              </div>
-          <div className="card-body col-md-9 pt-0 pl-4" onClick={this.goToSingleView}>
-            <h5 className="card-title title"><b>{post.title}</b></h5>
-            <h6 className="card-subtitle mb-2"><b>Posted:</b> {utils.dateFix(post.datePosted)}</h6>
-            <p className="card-text">{post.description}</p>
-            <div className="users-profile-pic">
-              {/* <img className="profile-pic" src={user.profilePic} alt=""/>
-              <p>{user.username}</p> */}
+            <div class="col-md-3 pr-0 pl-4 pt-2 users-profile-pic d-flex justify-content-center flex-column">
+              <h3 className="mx-auto">Posted By:</h3>
+              <img className="profile-pic mx-auto" src={user.profilePic} alt=""/>
+              <p className="mx-auto">{user.username}</p>
+            </div>
+            <div className="card-body col-md-9 pt-0 pl-4" onClick={this.goToSingleView}>
+              <h5 className="card-title title"><b>{post.title}</b></h5>
+              <h6 className="card-subtitle mb-2"><b>Posted:</b> {utils.dateFix(post.datePosted)}</h6>
+              <p className="card-text">{post.description}</p>
             </div>
           </div>
-        </div>
         </div>
       </div>
     );
