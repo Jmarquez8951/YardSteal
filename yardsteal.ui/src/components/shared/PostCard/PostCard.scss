@@ -1,3 +1,5 @@
+@import '../../../Styles//variables';
+
 .PostCard {
   display: inline;
   .card:hover {
@@ -7,6 +9,15 @@
     box-shadow: black 8px 8px 25px;
     .title {
       border-bottom: black solid 1px ;
+    }
+    .users-profile-pic {
+      .profile-pic {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: solid 2px black;
+        box-shadow: black 3px 3px 8px;
+      }
     }
   }
 }

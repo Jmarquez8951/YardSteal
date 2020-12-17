@@ -34,11 +34,27 @@ class Home extends React.Component {
     this.getAllPosts();
   }
 
+  deletePost = (postId) => {
+    postsData.deletePost(postId)
+      .then(() => {
+        this.getAllPosts();
+      })
+      .catch((err) => console.error('could not delete post', err));
+  }
+
+  updatePost = (postId) => {
+    postsData.postUpdate(postId)
+      .then(() => {
+        this.getAllPosts();
+      })
+      .catch((err) => console.error('could not update post', err));
+  }
+
   render() {
     const { posts } = this.state;
 
     const buildPostsCards = () => posts.map((post) => (
-        <PostCard key={post.id} post={post}/>
+        <PostCard key={post.id} post={post} deletePost={this.deletePost} updatePost={this.updatePost}/>
     ));
 
     return (
