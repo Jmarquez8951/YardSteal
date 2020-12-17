@@ -11,11 +11,14 @@ import {
 } from 'react-router-dom';
 
 import Home from '../components/page/Home/Home';
+import UsersPosts from '../components/page/UsersPosts/UsersPosts';
 import SingleView from '../components/page/SingleView/SingleView';
 import CreateAccount from '../components/page/CreateAccount/CreateAccount';
 import CreatePost from '../components/page/CreatePost/CreatePost';
+import EditPost from '../components/page/EditPost/EditPost';
 import Login from '../components/page/Login/Login';
 import MyNavbar from '../components/shared/MyNavbar/MyNavbar';
+
 import fbConnection from '../helpers/data/connection';
 
 fbConnection();
@@ -65,7 +68,9 @@ class App extends React.Component {
               <Switch>
                 <PrivateRoute path='/home' component={Home} authed={authed} />
                 <PrivateRoute path='/posts/:postId' component={SingleView} authed={authed} />
+                <PrivateRoute path='/my-posts' component={UsersPosts} authed={authed} />
                 <PrivateRoute path='/new-post' component={CreatePost} authed={authed} />
+                <PrivateRoute path='/edit-post/:postId' component={EditPost} authed={authed}/>
                 <PublicRoute path='/sign-up' component={CreateAccount} authed={authed} />
                 <PublicRoute path='/log-in' component={Login} authed={authed} />
                 <Redirect from="*" to="/home"/>

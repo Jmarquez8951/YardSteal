@@ -27,10 +27,16 @@ const getOldestPosts = () => new Promise((resolve, reject) => {
 
 const addPost = (newPost) => axios.post(`${baseUrl}/posts`, newPost);
 
+const postUpdate = (postId, updatedPost) => axios.put(`${baseUrl}/posts/${postId}`, updatedPost);
+
+const deletePost = (postId) => axios.delete(`${baseUrl}/posts/${postId}`);
+
 export default {
   getPosts,
   getSinglePost,
   getLatestPosts,
   getOldestPosts,
   addPost,
+  postUpdate,
+  deletePost,
 };

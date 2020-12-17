@@ -36,6 +36,14 @@ namespace YardSteal.Controllers
             return Ok(user);
         }
 
+        [HttpGet("{uid}/posts")]
+        public IActionResult GetUsersPosts(string uid)
+        {
+            var posts = _repo.GetPostsByUid(uid);
+
+            return Ok(posts);
+        }
+
         [HttpPost]
         public IActionResult CreateNewUser(User newUser)
         {
