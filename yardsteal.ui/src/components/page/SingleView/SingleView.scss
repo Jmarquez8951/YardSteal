@@ -4,5 +4,9 @@
   display: inline;
   .comment-background{
     background-color: $accent-color;
+    .comment-creater {
+      .new-comment {
+      }
+    }
   }
 }

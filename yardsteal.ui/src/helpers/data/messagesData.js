@@ -7,4 +7,6 @@ const getMessagesByPostId = (postId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export default { getMessagesByPostId };
+const addnewComment = (commentToAdd) => axios.post(`${baseUrl}/messages`, commentToAdd);
+
+export default { getMessagesByPostId, addnewComment };

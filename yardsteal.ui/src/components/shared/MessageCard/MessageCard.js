@@ -11,7 +11,7 @@ class MessageCard extends React.Component {
   }
 
   static propTypes = {
-    message: PropTypes.func.isRequired,
+    message: PropTypes.object.isRequired,
   }
 
   getInfo = () => {
@@ -34,8 +34,8 @@ class MessageCard extends React.Component {
     return (
       <div className="MessageCard col-8 mx-auto m-4">
         <div className="card rounded border-0">
-          <div class="row g-0">
-            <div class="col-md-3 pr-0 pl-4 pt-2 users-profile-pic d-flex justify-content-center flex-column">
+          <div className="row g-0">
+            <div className="col-md-3 pr-0 pl-4 pt-2 users-profile-pic d-flex justify-content-center flex-column">
               <h3 className="mx-auto">Posted By:</h3>
               <img className="profile-pic mx-auto" src={user.profilePic} alt=""/>
               <p className="mx-auto">{user.username}</p>

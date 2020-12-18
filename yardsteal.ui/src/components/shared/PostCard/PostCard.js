@@ -59,12 +59,12 @@ class PostCard extends React.Component {
         <div className="card rounded">
           {isUsers
             ? <div className="d-flex justify-content-end">
-                <button className="btn btn-outline-warning mr-1" onClick={this.editPost}><i class="fas fa-edit ml-1"></i></button>
-                <button className="btn btn-danger m-0" onClick={this.removePost}><i class="fas fa-trash-alt"></i></button>
+                <button className="btn btn-outline-warning mr-1" onClick={this.editPost}><i className="fas fa-edit ml-1"></i></button>
+                <button className="btn btn-danger m-0" onClick={this.removePost}><i className="fas fa-trash-alt"></i></button>
               </div>
             : ''}
-          <div class="row g-0">
-            <div class="col-md-3 pr-0 pl-4 pt-2 users-profile-pic d-flex justify-content-center flex-column">
+          <div className="row g-0">
+            <div className="col-md-3 pr-0 pl-4 pt-2 users-profile-pic d-flex justify-content-center flex-column">
               <h3 className="mx-auto">Posted By:</h3>
               <img className="profile-pic mx-auto" src={user.profilePic} alt=""/>
               <p className="mx-auto">{user.username}</p>
