@@ -9,6 +9,7 @@ const getUserByUid = (uid) => new Promise((resolve, reject) => {
         id: theUser.id,
         usersUid: theUser.usersUid,
         username: theUser.username,
+        phoneNumber: theUser.phoneNumber,
         profilePic: theUser.profilePic,
         dateJoined: theUser.dateJoined,
       };
@@ -23,4 +24,6 @@ const getUsersPosts = (uid) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export default { getUserByUid, getUsersPosts };
+const updateUser = (userId, updatedUser) => axios.put(`${baseUrl}/users/${userId}`, updatedUser);
+
+export default { getUserByUid, getUsersPosts, updateUser };

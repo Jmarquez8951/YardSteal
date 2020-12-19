@@ -105,8 +105,6 @@ namespace YardSteal.Data
 
             var sql = @"UPDATE [dbo].[Users]
                            SET [username] = @username 
-                              ,[email] = @email
-                              ,[password] = @password
                               ,[profilePic] = @profilePic
                               ,[phoneNumber] = @phoneNumber
                          WHERE Id = @id";
@@ -114,8 +112,6 @@ namespace YardSteal.Data
             var parameters = new
             {
                 userToUpdate.Username,
-                userToUpdate.Email,
-                userToUpdate.Password,
                 userToUpdate.ProfilePic,
                 userToUpdate.PhoneNumber,
                 id = userId
