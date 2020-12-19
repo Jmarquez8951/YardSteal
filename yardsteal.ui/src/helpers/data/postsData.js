@@ -1,4 +1,5 @@
 import axios from 'axios';
+import bookmarkData from './bookmarkData';
 import { baseUrl } from '../apiKeys.json';
 
 const getPosts = () => new Promise((resolve, reject) => {
@@ -12,12 +13,6 @@ const getSinglePost = (postId) => new Promise((resolve, reject) => {
     .then((response) => resolve(response.data))
     .catch((err) => reject(err));
 });
-
-// const getMulitplePosts = (allBookmarks) => new Promise((resolve, reject) => {
-//   allBookmarks.forEach((bookmark) => {
-//     axios.get(``)
-//   });
-// });
 
 const getLatestPosts = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/posts/newest`)
