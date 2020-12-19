@@ -1,17 +1,17 @@
 import React from 'react';
+import './Bookmark.scss';
+
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import utils from '../../../helpers/utils';
-import './PostCard.scss';
 import authData from '../../../helpers/data/authData';
 import usersData from '../../../helpers/data/usersData';
 import bookmarkData from '../../../helpers/data/bookmarkData';
+import utils from '../../../helpers/utils';
 
-class PostCard extends React.Component {
+class Bookmark extends React.Component {
   state = {
     user: {},
-    isUsers: false,
-    isVisible: true,
+    isVisible: false,
   }
 
   static propTypes = {
@@ -22,11 +22,6 @@ class PostCard extends React.Component {
     const Uid = authData.getUid();
     const postId = this.props.post.id;
     const { post } = this.props;
-    if (Uid === post.uid) {
-      this.setState({ isUsers: true });
-    } else {
-      this.setState({ isUsers: false });
-    }
     usersData.getUserByUid(post.uid)
       .then((response) => {
         this.setState({ user: response });
@@ -46,25 +41,6 @@ class PostCard extends React.Component {
     this.getInfo();
   }
 
-  goToSingleView = (e) => {
-    e.preventDefault();
-    const postId = this.props.post.id;
-    this.props.history.push(`/posts/${postId}`);
-  }
-
-  editPost = (e) => {
-    e.preventDefault();
-    const postId = this.props.post.id;
-    this.props.history.push(`/edit-post/${postId}`);
-  }
-
-  removePost = (e) => {
-    e.preventDefault();
-    const postId = this.props.post.id;
-    const postsUid = this.props.post.uid;
-    this.props.deletePost(postId, postsUid);
-  }
-
   addToBookmarks = (e) => {
     e.preventDefault();
     const postId = this.props.post.id;
@@ -82,25 +58,26 @@ class PostCard extends React.Component {
     const postId = this.props.post.id;
     this.setState({ isVisible: true });
     this.props.deleteBookmark(postId, authData.getUid());
+    this.props.history.push('/home');
+  }
+
+  goToSingleView = (e) => {
+    e.preventDefault();
+    const postId = this.props.post.id;
+    this.props.history.push(`/posts/${postId}`);
   }
 
   render() {
-    const { user, isUsers, isVisible } = this.state;
+    const { isVisible, user } = this.state;
     const { post } = this.props;
 
     return (
-      <div className="PostCard m-2">
-        <div className="card rounded">
+      <div className="Bookmark m-3 d-flex justify-content-center">
+        <div className="card rounded col-10">
           <div className="d-flex justify-content-end">
             {isVisible
               ? <button className="btn btn-warning bookmark-btn" onClick={this.addToBookmarks}>Bookmark</button>
               : <button className="btn btn-danger bookmark-btn" onClick={this.removeBookmark}>Remove Bookmark</button>}
-            {isUsers
-              ? <div className="d-flex justify-content-end">
-                  <button className="btn btn-outline-warning ml-1 mr-1" onClick={this.editPost}><i className="fas fa-edit ml-1"></i></button>
-                  <button className="btn btn-danger m-0" onClick={this.removePost}><i className="fas fa-trash-alt"></i></button>
-                </div>
-              : ''}
           </div>
           <div className="row g-0">
             <div className="col-md-3 pr-0 pl-4 pt-2 users-profile-pic d-flex justify-content-center flex-column">
@@ -120,4 +97,4 @@ class PostCard extends React.Component {
   }
 }
 
-export default withRouter(PostCard);
+export default withRouter(Bookmark);

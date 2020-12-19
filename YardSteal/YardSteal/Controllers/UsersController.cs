@@ -44,6 +44,14 @@ namespace YardSteal.Controllers
             return Ok(posts);
         }
 
+        [HttpGet("{uid}/bookmarks")]
+        public IActionResult GetUsersBookmarks(string uid)
+        {
+            var bookmarks = _repo.GetBookmarksByUid(uid);
+
+            return Ok(bookmarks);
+        }
+
         [HttpPost]
         public IActionResult CreateNewUser(User newUser)
         {
@@ -77,7 +85,5 @@ namespace YardSteal.Controllers
 
             return Ok(updatedUser);
         }
-
-        //[HttpPatch("{}")]
     }
 }

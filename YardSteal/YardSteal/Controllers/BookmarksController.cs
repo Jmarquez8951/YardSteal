@@ -30,6 +30,16 @@ namespace YardSteal.Controllers
         [HttpPost]
         public IActionResult AddBookmark(Bookmark bookmarkToAdd)
         {
+            var bookmarks = _repo.GetBookmarks();
+
+            foreach (var b in bookmarks)
+            {
+                if (b.PostId == bookmarkToAdd.PostId && b.Uid == bookmarkToAdd.Uid)
+                {
+                    return StatusCode(405);
+                }
+            }
+
             _repo.Add(bookmarkToAdd);
 
             return Created($"api/bookmarks/{bookmarkToAdd.Id}", bookmarkToAdd);

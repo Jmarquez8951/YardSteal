@@ -1,4 +1,5 @@
 import axios from 'axios';
+import bookmarkData from './bookmarkData';
 import { baseUrl } from '../apiKeys.json';
 
 const getPosts = () => new Promise((resolve, reject) => {
