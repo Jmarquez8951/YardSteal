@@ -15,6 +15,7 @@ import UsersPosts from '../components/page/UsersPosts/UsersPosts';
 import SingleView from '../components/page/SingleView/SingleView';
 import CreateAccount from '../components/page/CreateAccount/CreateAccount';
 import Account from '../components/page/Account/Account';
+import Bookmarks from '../components/page/Bookmarks/Bookmarks';
 import CreatePost from '../components/page/CreatePost/CreatePost';
 import EditPost from '../components/page/EditPost/EditPost';
 import Login from '../components/page/Login/Login';
@@ -70,6 +71,7 @@ class App extends React.Component {
                 <PrivateRoute path='/home' component={Home} authed={authed} />
                 <PrivateRoute path='/posts/:postId' component={SingleView} authed={authed} />
                 <PrivateRoute path='/account' component={Account} authed={authed} />
+                <PrivateRoute path='/bookmarks' component={Bookmarks} authed={authed}/>
                 <PrivateRoute path='/my-posts' component={UsersPosts} authed={authed} />
                 <PrivateRoute path='/new-post' component={CreatePost} authed={authed} />
                 <PrivateRoute path='/edit-post/:postId' component={EditPost} authed={authed}/>

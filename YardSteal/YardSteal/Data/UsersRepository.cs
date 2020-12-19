@@ -65,6 +65,22 @@ namespace YardSteal.Data
             return posts;
         }
 
+        public IEnumerable<Post> GetBookmarksByUid(string uid)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select postId, p.Id, p.[uid], title, [description], streetAddress, streetAddress2, city, state, zipcode, datePosted from Bookmarks b
+                        join Posts p 
+	                        on p.id = b.postId
+                        where b.[uid] = @UID";
+
+            var param = new { UID = uid };
+
+            var bookmarks = db.Query<Post>(sql, param);
+
+            return bookmarks;
+        }
+
         public void Add(User userToAdd)
         {
             using var db = new SqlConnection(_connectionString);

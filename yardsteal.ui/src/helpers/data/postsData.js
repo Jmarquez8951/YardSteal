@@ -13,6 +13,12 @@ const getSinglePost = (postId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+// const getMulitplePosts = (allBookmarks) => new Promise((resolve, reject) => {
+//   allBookmarks.forEach((bookmark) => {
+//     axios.get(``)
+//   });
+// });
+
 const getLatestPosts = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/posts/newest`)
     .then((response) => resolve(response.data))

@@ -1,4 +1,5 @@
 import React from 'react';
+import bookmarkData from '../../../helpers/data/bookmarkData';
 import postsData from '../../../helpers/data/postsData';
 
 import DropdownComponent from '../../shared/Dropdown/Dropdown';
@@ -34,6 +35,14 @@ class Home extends React.Component {
     this.getAllPosts();
   }
 
+  addBookmark = (newBookmark) => {
+    bookmarkData.addBookmark(newBookmark)
+      .then(() => {
+        this.getAllPosts();
+      })
+      .catch((err) => console.error('could not add bookmark', err));
+  }
+
   deletePost = (postId) => {
     postsData.deletePost(postId)
       .then(() => {
@@ -54,7 +63,7 @@ class Home extends React.Component {
     const { posts } = this.state;
 
     const buildPostsCards = () => posts.map((post) => (
-        <PostCard key={post.id} post={post} deletePost={this.deletePost} updatePost={this.updatePost}/>
+        <PostCard key={post.id} post={post} addBookmark={this.addBookmark} deletePost={this.deletePost} updatePost={this.updatePost}/>
     ));
 
     return (

@@ -24,6 +24,17 @@ const getUsersPosts = (uid) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getUsersBookmarks = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/users/${uid}/bookmarks`)
+    .then((response) => resolve(response.data))
+    .catch((err) => reject(err));
+});
+
 const updateUser = (userId, updatedUser) => axios.put(`${baseUrl}/users/${userId}`, updatedUser);
 
-export default { getUserByUid, getUsersPosts, updateUser };
+export default {
+  getUserByUid,
+  getUsersPosts,
+  updateUser,
+  getUsersBookmarks,
+};

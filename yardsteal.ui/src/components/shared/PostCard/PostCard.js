@@ -5,20 +5,22 @@ import utils from '../../../helpers/utils';
 import './PostCard.scss';
 import authData from '../../../helpers/data/authData';
 import usersData from '../../../helpers/data/usersData';
+import bookmarkData from '../../../helpers/data/bookmarkData';
 
 class PostCard extends React.Component {
   state = {
     user: {},
     isUsers: false,
+    isVisible: true,
   }
 
   static propTypes = {
     post: PropTypes.object.isRequired,
-    deletePost: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
     const Uid = authData.getUid();
+    const postId = this.props.post.id;
     const { post } = this.props;
     if (Uid === post.uid) {
       this.setState({ isUsers: true });
@@ -28,6 +30,14 @@ class PostCard extends React.Component {
     usersData.getUserByUid(post.uid)
       .then((response) => {
         this.setState({ user: response });
+        bookmarkData.getBookmarks()
+          .then((resp) => {
+            resp.forEach((bookmark) => {
+              if (bookmark.postId === postId && bookmark.uid === Uid) {
+                this.setState({ isVisible: false });
+              }
+            });
+          });
       })
       .catch((err) => console.error('could not get user', err));
   }
@@ -50,19 +60,35 @@ class PostCard extends React.Component {
     this.props.deletePost(postId);
   }
 
+  addToBookmarks = (e) => {
+    e.preventDefault();
+    const postId = this.props.post.id;
+    const Uid = authData.getUid();
+    const newBookmark = {
+      uid: Uid,
+      postId,
+    };
+    this.props.addBookmark(newBookmark);
+  }
+
   render() {
-    const { user, isUsers } = this.state;
+    const { user, isUsers, isVisible } = this.state;
     const { post } = this.props;
 
     return (
       <div className="PostCard m-2">
         <div className="card rounded">
-          {isUsers
-            ? <div className="d-flex justify-content-end">
-                <button className="btn btn-outline-warning mr-1" onClick={this.editPost}><i className="fas fa-edit ml-1"></i></button>
-                <button className="btn btn-danger m-0" onClick={this.removePost}><i className="fas fa-trash-alt"></i></button>
-              </div>
-            : ''}
+          <div className="d-flex justify-content-end">
+            {isVisible
+              ? <button className="btn btn-warning bookmark-btn" onClick={this.addToBookmarks}>Bookmark</button>
+              : ''}
+            {isUsers
+              ? <div className="d-flex justify-content-end">
+                  <button className="btn btn-outline-warning ml-1 mr-1" onClick={this.editPost}><i className="fas fa-edit ml-1"></i></button>
+                  <button className="btn btn-danger m-0" onClick={this.removePost}><i className="fas fa-trash-alt"></i></button>
+                </div>
+              : ''}
+          </div>
           <div className="row g-0">
             <div className="col-md-3 pr-0 pl-4 pt-2 users-profile-pic d-flex justify-content-center flex-column">
               <h3 className="mx-auto">Posted By:</h3>
