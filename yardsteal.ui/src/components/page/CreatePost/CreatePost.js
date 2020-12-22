@@ -2,9 +2,11 @@ import React from 'react';
 import './CreatePost.scss';
 import postsData from '../../../helpers/data/postsData';
 import authData from '../../../helpers/data/authData';
+import imageUploader from '../../../helpers/data/imageUploader';
 
 class CreatePost extends React.Component {
   state = {
+    images: [],
     userTitle: '',
     userDescription: '',
     userStreet: '',
@@ -13,6 +15,12 @@ class CreatePost extends React.Component {
     userState: '',
     userZipcode: '',
     userDatePosted: '',
+  }
+
+  imageChange = (e) => {
+    e.preventDefault();
+    const allFiles = Array.from(e.target.files);
+    this.setState({ images: allFiles });
   }
 
   titleChange = (e) => {
@@ -65,7 +73,10 @@ class CreatePost extends React.Component {
       datePosted: this.state.userDatePosted,
     };
     postsData.addPost(newPost)
-      .then(() => {
+      .then((response) => {
+        this.state.images.forEach((image) => {
+          imageUploader.uploadImageToFirebase(response.data.id, image);
+        });
         this.props.history.push('/home');
       })
       .catch((err) => console.error('could not add post', err));
@@ -82,6 +93,11 @@ class CreatePost extends React.Component {
         <div className="mb-3">
           <label htmlFor="users-title" className="form-label">Title</label>
           <input type="text" className="form-control" id="users-title" onChange={this.titleChange}/>
+        </div>
+        <div className="mb-3">
+          <progress value="0" max="100" id="uploader">0%</progress>
+          <label htmlFor="users-images" className="form-label">Choose Images</label>
+          <input type="file" className="" id="users-images" onChange={this.imageChange} multiple/>
         </div>
         <div className="mb-3">
           <label htmlFor="users-description" className="form-label">Description</label>
