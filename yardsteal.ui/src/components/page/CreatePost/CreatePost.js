@@ -60,26 +60,49 @@ class CreatePost extends React.Component {
 
   submit = (e) => {
     e.preventDefault();
+    const {
+      images, userCity, userDatePosted, userDescription, userState, userStreet, userTitle, userZipcode,
+    } = this.state;
     const uid = authData.getUid();
     const newPost = {
       uid,
-      title: this.state.userTitle,
-      description: this.state.userDescription,
-      streetAddress: this.state.userStreet,
+      title: userTitle,
+      description: userDescription,
+      streetAddress: userStreet,
       streetAddress2: this.state.userStreet2,
-      city: this.state.userCity,
-      state: this.state.userState,
-      zipcode: this.state.userZipcode,
-      datePosted: this.state.userDatePosted,
+      city: userCity,
+      state: userState,
+      zipcode: userZipcode,
+      datePosted: userDatePosted,
     };
-    postsData.addPost(newPost)
-      .then((response) => {
-        this.state.images.forEach((image) => {
-          imageUploader.uploadImageToFirebase(response.data.id, image);
-        });
-        this.props.history.push('/home');
-      })
-      .catch((err) => console.error('could not add post', err));
+    if (images[0] === false || userTitle === '' || userDatePosted === '' || userDescription === '' || userState === '' || userStreet === '' || userZipcode === '' || userCity === '') {
+      this.validation(userTitle, 'users-title');
+      this.validation(userDescription, 'users-description');
+      this.validation(userStreet, 'users-street');
+      this.validation(userCity, 'users-city');
+      this.validation(userState, 'users-state');
+      this.validation(userZipcode, 'users-zipcode');
+      window.alert('You have left out some information');
+    } else {
+      postsData.addPost(newPost)
+        .then((response) => {
+          images.forEach((image) => {
+            imageUploader.uploadImageToFirebase(response.data.id, image);
+          });
+          this.props.history.push('/home');
+        })
+        .catch((err) => console.error('could not add post', err));
+    }
+  }
+
+  validation = (stateVariable, id) => {
+    if (stateVariable === '') {
+      document.getElementById(id).classList.add('not-valid');
+      document.getElementById(id).classList.remove('valid');
+    } else {
+      document.getElementById(id).classList.remove('not-valid');
+      document.getElementById(id).classList.add('valid');
+    }
   }
 
   componentDidMount() {
@@ -91,36 +114,35 @@ class CreatePost extends React.Component {
     return (
       <div className="CreatePost">
         <div className="mb-3">
-          <label htmlFor="users-title" className="form-label">Title</label>
+          <label htmlFor="users-title" className="form-label">Title:</label>
           <input type="text" className="form-control" id="users-title" onChange={this.titleChange}/>
         </div>
-        <div className="mb-3">
-          <progress value="0" max="100" id="uploader">0%</progress>
-          <label htmlFor="users-images" className="form-label">Choose Images</label>
+        <div className="mb-3 d-flex flex-column">
+          <label htmlFor="users-images" className="form-label">Choose Images:</label>
           <input type="file" className="" id="users-images" onChange={this.imageChange} multiple/>
         </div>
         <div className="mb-3">
-          <label htmlFor="users-description" className="form-label">Description</label>
+          <label htmlFor="users-description" className="form-label">Description:</label>
           <input type="text" className="form-control" id="users-description" onChange={this.descriptionChange}/>
         </div>
         <div className="mb-3">
-          <label htmlFor="users-street" className="form-label">Street Address</label>
+          <label htmlFor="users-street" className="form-label">Street Address:</label>
           <input type="text" className="form-control" id="users-street" onChange={this.streetChange}/>
         </div>
         <div className="mb-3">
-          <label htmlFor="users-street2" className="form-label">Street Address 2</label>
+          <label htmlFor="users-street2" className="form-label">Street Address 2:</label>
           <input type="text" className="form-control" id="users-street2" onChange={this.streetChange2}/>
         </div>
         <div className="mb-3">
-          <label htmlFor="users-city" className="form-label">City</label>
+          <label htmlFor="users-city" className="form-label">City:</label>
           <input type="text" className="form-control" id="users-city" onChange={this.cityChange}/>
         </div>
         <div className="mb-3">
-          <label htmlFor="users-state" className="form-label">State</label>
+          <label htmlFor="users-state" className="form-label">State:</label>
           <input type="text" className="form-control" id="users-state" onChange={this.stateChange}/>
         </div>
         <div className="mb-3">
-          <label htmlFor="users-zipcode" className="form-label">Zipcode</label>
+          <label htmlFor="users-zipcode" className="form-label">Zipcode:</label>
           <input type="text" className="form-control" id="users-zipcode" onChange={this.zipcodeChange}/>
         </div>
         <button className="btn btn-dark" onClick={this.submit}>Submit</button>

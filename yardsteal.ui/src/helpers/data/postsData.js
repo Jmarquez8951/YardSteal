@@ -1,6 +1,6 @@
 import axios from 'axios';
-import bookmarkData from './bookmarkData';
 import { baseUrl } from '../apiKeys.json';
+import imageUploader from './imageUploader';
 
 const getPosts = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/posts`)
@@ -30,7 +30,12 @@ const addPost = (newPost) => axios.post(`${baseUrl}/posts`, newPost);
 
 const postUpdate = (postId, updatedPost) => axios.put(`${baseUrl}/posts/${postId}`, updatedPost);
 
-const deletePost = (postId) => axios.delete(`${baseUrl}/posts/${postId}`);
+const deletePost = (postId) => new Promise(() => {
+  // axios.delete(`${baseUrl}/posts/${postId}`)
+  //   .then(() => {
+  imageUploader.deleteImageFolder(postId);
+  // });
+});
 
 export default {
   getPosts,

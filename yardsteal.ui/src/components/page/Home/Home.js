@@ -52,8 +52,8 @@ class Home extends React.Component {
       .catch((err) => console.error('could not remove bookmark', err));
   }
 
-  deletePost = (postId, uid) => {
-    postsData.deletePost(postId, uid)
+  deletePost = (postId) => {
+    postsData.deletePost(postId)
       .then(() => {
         this.getAllPosts();
       })
