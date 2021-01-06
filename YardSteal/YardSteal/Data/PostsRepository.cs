@@ -101,6 +101,9 @@ namespace YardSteal.Data
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"DELETE 
+                        FROM [dbo].[Messages]
+                        WHERE postId = @id
+                        DELETE 
                         FROM [dbo].[Posts]
                         WHERE Id = @id";
 

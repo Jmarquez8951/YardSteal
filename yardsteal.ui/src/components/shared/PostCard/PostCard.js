@@ -61,8 +61,7 @@ class PostCard extends React.Component {
   removePost = (e) => {
     e.preventDefault();
     const postId = this.props.post.id;
-    const postsUid = this.props.post.uid;
-    this.props.deletePost(postId, postsUid);
+    this.props.deletePost(postId);
   }
 
   addToBookmarks = (e) => {
