@@ -30,11 +30,13 @@ const addPost = (newPost) => axios.post(`${baseUrl}/posts`, newPost);
 
 const postUpdate = (postId, updatedPost) => axios.put(`${baseUrl}/posts/${postId}`, updatedPost);
 
-const deletePost = (postId) => new Promise(() => {
-  // axios.delete(`${baseUrl}/posts/${postId}`)
-  //   .then(() => {
-  imageUploader.deleteImageFolder(postId);
-  // });
+const deletePost = (postId) => new Promise((resolve, reject) => {
+  axios.delete(`${baseUrl}/posts/${postId}`)
+    .then(() => {
+      imageUploader.deleteImageFolder(postId);
+      resolve();
+    })
+    .catch((err) => reject(err));
 });
 
 export default {

@@ -32,7 +32,7 @@ const getImage = (postId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-const deleteImageFolder = (postId) => new Promise((resolve, reject) => {
+const deleteImageFolder = (postId) => new Promise(() => {
   const storageRef = firebase.storage().ref();
   const listRef = storageRef.child(`${authData.getUid()}/post${postId}`);
   listRef.listAll()
@@ -43,9 +43,8 @@ const deleteImageFolder = (postId) => new Promise((resolve, reject) => {
           console.log('image deleted');
         });
       });
-      resolve();
     })
-    .catch((err) => reject(err));
+    .catch((err) => console.error('could not delete images', err));
 });
 
 export default { uploadImageToFirebase, getImage, deleteImageFolder };

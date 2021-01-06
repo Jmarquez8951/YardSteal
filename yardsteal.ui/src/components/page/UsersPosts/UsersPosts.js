@@ -1,6 +1,7 @@
 import React from 'react';
 import authData from '../../../helpers/data/authData';
 import usersData from '../../../helpers/data/usersData';
+import bookmarkData from '../../../helpers/data/bookmarkData';
 import postsData from '../../../helpers/data/postsData';
 import PostCard from '../../shared/PostCard/PostCard';
 import './UsersPosts.scss';
@@ -20,6 +21,22 @@ class UsersPosts extends React.Component {
 
   componentDidMount() {
     this.getInfo();
+  }
+
+  addBookmark = (newBookmark) => {
+    bookmarkData.addBookmark(newBookmark)
+      .then(() => {
+        this.getInfo();
+      })
+      .catch((err) => console.error('could not add bookmark', err));
+  }
+
+  deleteBookmark = (postId, uid) => {
+    bookmarkData.removeBookmark(postId, uid)
+      .then(() => {
+        this.getInfo();
+      })
+      .catch((err) => console.error('could not remove bookmark', err));
   }
 
   updatePost = (postId) => {
@@ -42,7 +59,7 @@ class UsersPosts extends React.Component {
     const { posts } = this.state;
 
     const buildPostCards = posts.map((post) => (
-      <PostCard key={post.id} post={post} deletePost={this.deletePost} updatePost={this.updatePost} />
+      <PostCard key={post.id} post={post} addBookmark={this.addBookmark} deleteBookmark={this.deleteBookmark} deletePost={this.deletePost} updatePost={this.updatePost} />
     ));
     return (
       <div className="UsersPosts">

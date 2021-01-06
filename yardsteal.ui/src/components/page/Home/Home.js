@@ -1,5 +1,4 @@
 import React from 'react';
-import authData from '../../../helpers/data/authData';
 import bookmarkData from '../../../helpers/data/bookmarkData';
 import postsData from '../../../helpers/data/postsData';
 
@@ -52,7 +51,7 @@ class Home extends React.Component {
       .catch((err) => console.error('could not remove bookmark', err));
   }
 
-  deletePost = (postId) => {
+  deletePostFromHome = (postId) => {
     postsData.deletePost(postId)
       .then(() => {
         this.getAllPosts();
@@ -71,17 +70,18 @@ class Home extends React.Component {
   render() {
     const { posts } = this.state;
 
-    const buildPostsCards = () => posts.map((post) => (
-        <PostCard key={post.id} post={post} addBookmark={this.addBookmark} deleteBookmark={this.deleteBookmark} deletePost={this.deletePost} updatePost={this.updatePost}/>
+    const buildPostsCards = posts.map((post) => (
+        <PostCard key={post.id} post={post} addBookmark={this.addBookmark} deleteBookmark={this.deleteBookmark} deletePost={this.deletePostFromHome} updatePost={this.updatePost}/>
     ));
 
     return (
       <div className="Home">
         <div className="d-flex justify-content-center flex-column">
-          <h1>Home Page</h1>
-          <DropdownComponent getNewestPosts={this.getNewestPosts} getOldestPosts={this.getOldestPosts} />
+          <div className="pl-3">
+            <DropdownComponent getNewestPosts={this.getNewestPosts} getOldestPosts={this.getOldestPosts} />
+          </div>
           <div className="mx-auto">
-            {buildPostsCards()}
+            {buildPostsCards}
           </div>
         </div>
       </div>
