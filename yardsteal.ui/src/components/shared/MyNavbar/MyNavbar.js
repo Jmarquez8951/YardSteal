@@ -55,13 +55,13 @@ class MyNavbar extends React.Component {
             </NavItem>
             {authed
               ? <NavItem>
-                  <NavLink onClick={this.logMeOut}>Logout</NavLink>
+                  <NavLink className="logout" onClick={this.logMeOut}>Logout</NavLink>
                 </NavItem>
               : ''
             }
           </Nav>
         </Collapse>
-      </Navbar>
+        </Navbar>
       </div>
     );
   }

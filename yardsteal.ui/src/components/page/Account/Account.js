@@ -35,6 +35,7 @@ class Account extends React.Component {
   submitChanges = (e) => {
     e.preventDefault();
     const { user } = this.state;
+    user.phoneNumber = user.phoneNumber.slice(0, 10);
     usersData.updateUser(user.id, user)
       .then(() => {
         this.setState({ isEditing: false });
@@ -68,25 +69,36 @@ class Account extends React.Component {
     const { user, isEditing } = this.state;
 
     return (
-      <div className="Account">
+      <div className="Account m-1 p-1">
         <h1>Account page</h1>
         {isEditing
           ? <div className="d-flex flex-auto flex-column justify-content-start">
               <div>
                 <button className="btn btn-dark" onClick={this.goBack}>Back</button>
               </div>
-              <input type="text" className="col-6 m-2" onChange={this.usernameChange} value={user.username}/>
-              <input type="text" className="col-6 m-2" onChange={this.phoneNumberChange} value={user.phoneNumber}/>
-              <input type="text" className="col-6 m-2" onChange={this.profilePicChange} value={user.profilePic}/>
-              <button className="btn btn-dark" onClick={this.submitChanges}>Submit</button>
+              <div>
+                <p>Username:</p>
+                <input type="text" className="col-6 m-2" onChange={this.usernameChange} value={user.username}/>
+              </div>
+              <div>
+                <p>Phone Number:</p>
+                <input type="text" className="col-6 m-2" onChange={this.phoneNumberChange} value={user.phoneNumber}/>
+              </div>
+              <div>
+                <p>Profile Picture:</p>
+                <input type="text" className="col-6 m-2" onChange={this.profilePicChange} value={user.profilePic}/>
+              </div>
+              <button className="btn btn-dark col-6 mx-auto" onClick={this.submitChanges}>Submit</button>
             </div>
           : <div className="d-flex flex-auto flex-column justify-content-start">
-              <div>
-                <button className="btn btn-dark" onClick={this.editChange}>Edit</button>
+              <div className="info d-flex flex-column m-2">
+                <div className="mt-4 ml-4">
+                  <button className="btn btn-dark" onClick={this.editChange}><i className="far fa-edit"></i> Edit</button>
+                </div>
+                <h3 className="mx-auto"><u><b>Username</b></u>: {user.username}</h3>
+                <h3 className="mx-auto"><u><b>Phone Number</b></u>: {user.phoneNumber}</h3>
+                <img className="profile-pic mx-auto mb-2" src={user.profilePic} alt=''/>
               </div>
-              <p>{user.username}</p>
-              <p>{user.phoneNumber}</p>
-              <img className="mx-auto" src={user.profilePic} alt=''/>
             </div>
         }
       </div>
