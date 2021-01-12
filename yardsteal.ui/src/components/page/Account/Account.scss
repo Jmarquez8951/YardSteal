@@ -1,3 +1,20 @@
+@import '../../../Styles/variables';
+
 .Account {
-  display: inline;
+  p {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .info {
+    background-color: $accent-color;
+    border: 2px solid black;
+    border-radius: 10px;
+    box-shadow: 5px 5px 12px;
+    .profile-pic {
+      border: 2px solid black;
+      border-radius: 50%;
+      height: 500px;
+      width: 500px;
+    }
+  }
 }
